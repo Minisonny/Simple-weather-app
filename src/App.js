@@ -12,10 +12,31 @@ const App = () => {
   const [unit, setUnit] = useState("metric");
 
   useEffect(() => {
+    const preference = localStorage.getItem("preference");
+    if (preference !== null) {
+      const parsedPreference = JSON.parse(preference);
+      getWeather(parsedPreference.id, parsedPreference.unit).then(data =>
+        setDisplayData(data)
+      );
+    }
+  }, []);
+
+  // Every time the unit changes, we refetch the data with the new values for new unit
+  useEffect(() => {
     if (displayData) {
       getWeather(displayData.id, unit).then(data => setDisplayData(data));
     }
   }, [unit]);
+
+  // Save preferences into the browser
+  useEffect(() => {
+    if (displayData) {
+      localStorage.setItem(
+        "preference",
+        JSON.stringify({ id: displayData.id, unit })
+      );
+    }
+  }, [unit, displayData]);
 
   const handleSearch = async query => {
     if (!query || query === "") return;

@@ -8,17 +8,17 @@ import {
 
 const WeatherDisplay = ({ data, unit }) => {
   const getDisplayDate = unixDate => {
-    const date = new Date(unixDate);
-
-    return date.toString();
+    return Date(unixDate);
   };
 
   return (
     <Grid container justifyContent="center">
-      <Grid item xs={3}>
-        <h1>{Math.round(data.main?.temp)}&deg;C</h1>
+      <Grid item xs={4}>
+        <h1 style={{ fontSize: 40 }}>
+          {formatTempWithUnitSystem(data.main.temp, unit)}
+        </h1>
       </Grid>
-      <Grid item xs={9}>
+      <Grid item xs={8}>
         <img
           src={`http://openweathermap.org/img/wn/${
             data.weather ? data.weather[0].icon : ""
@@ -34,18 +34,18 @@ const WeatherDisplay = ({ data, unit }) => {
         {formatTempWithUnitSystem(data.main.feels_like, unit)}
       </Grid>
       <Grid item xs={12}>
-        {getDisplayDate(data.dt)}
+        <h5>{getDisplayDate(data.dt)}</h5>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         Humidity: {data.main.humidity}%
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         Pressure: {data.main.pressure}hPa
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         Wind speed: {formatWindSpeedWithUnitSystem(data.wind.speed, unit)}
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         Cloud coverage: {data.clouds.all}%
       </Grid>
       <Grid item xs={12}>

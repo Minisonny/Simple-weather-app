@@ -13,7 +13,7 @@ const SearchBar = ({ onSearch }) => {
     <>
       <TextField
         id="filled-search"
-        label="Search field"
+        label="Find location"
         type="search"
         variant="filled"
         value={searchText}
