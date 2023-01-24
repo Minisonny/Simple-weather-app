@@ -11,14 +11,15 @@ import {
   ListItemButton,
   ListItemText
 } from "@mui/material";
+import { formatTempWithUnitSystem } from "../utils/helpers";
 
-const LocationSelector = ({ open, weatherData, handleSelect }) => {
+const LocationSelector = ({ open, weatherData, handleSelect, unit }) => {
   const getPrimaryText = data => {
     return `${data.name}, ${data.sys.country}`;
   };
 
   const getSecondaryText = data => {
-    return `${data.main.temp}\u00b0C`;
+    return formatTempWithUnitSystem(data.main.temp, unit);
   };
 
   const handleCancel = () => {
@@ -37,7 +38,7 @@ const LocationSelector = ({ open, weatherData, handleSelect }) => {
           {weatherData.map(data => (
             <ListItem key={`list-item-${data.id}`} disableGutters>
               <ListItemButton
-                onClick={() => handleSelect(data)}
+                onClick={() => handleSelect(data.id)}
                 key={`list-item-button-${data.id}`}
               >
                 <img
@@ -64,7 +65,8 @@ const LocationSelector = ({ open, weatherData, handleSelect }) => {
 LocationSelector.propTypes = {
   open: PropTypes.bool.isRequired,
   weatherData: PropTypes.array.isRequired,
-  handleSelect: PropTypes.func.isRequired
+  handleSelect: PropTypes.func.isRequired,
+  unit: PropTypes.string.isRequired
 };
 
 export default LocationSelector;
