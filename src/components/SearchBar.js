@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Grid } from "@mui/material";
 
 const SearchBar = ({ onSearch }) => {
   const [searchText, setSearchText] = useState("");
@@ -10,19 +10,23 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <>
-      <TextField
-        id="filled-search"
-        label="Find location"
-        type="search"
-        variant="filled"
-        value={searchText}
-        onChange={e => setSearchText(e.target.value)}
-      />
-      <Button variant="contained" onClick={onSearchButtonClick}>
-        Search
-      </Button>
-    </>
+    <Grid container alignItems="center" spacing={2}>
+      <Grid item>
+        <TextField
+          id="filled-search"
+          label="Find location"
+          type="search"
+          variant="filled"
+          value={searchText}
+          onChange={e => setSearchText(e.target.value)}
+        />
+      </Grid>
+      <Grid item>
+        <Button variant="contained" onClick={onSearchButtonClick}>
+          Search
+        </Button>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getWeather, searchWeather } from "./api/weather";
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { ToggleButton, ToggleButtonGroup, Grid } from "@mui/material";
 import LocationSelector from "./components/LocationSelector";
 import SearchBar from "./components/SearchBar";
 import WeatherDisplay from "./components/WeatherDisplay";
@@ -61,27 +61,33 @@ const App = () => {
 
   return (
     <div>
-      <SearchBar
-        suggestions={weatherData.map(data => data.name)}
-        onSearch={handleSearch}
-      />
-      <ToggleButtonGroup
-        color="primary"
-        value={unit}
-        exclusive
-        onChange={(_, selectedUnit) => setUnit(selectedUnit)}
-        aria-label="Platform"
-      >
-        <ToggleButton value="metric">Metric: &deg;C, m/s </ToggleButton>
-        <ToggleButton value="imperial">Imperial: &deg;F, mph</ToggleButton>
-      </ToggleButtonGroup>
-      {displayData && <WeatherDisplay data={displayData} unit={unit} />}
-      <LocationSelector
-        open={selectDialogOpen}
-        weatherData={weatherData}
-        handleSelect={handleSelectLocation}
-        unit={unit}
-      />
+      <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid item>
+          <SearchBar
+            suggestions={weatherData.map(data => data.name)}
+            onSearch={handleSearch}
+          />
+        </Grid>
+        <Grid item>
+          <ToggleButtonGroup
+            color="primary"
+            value={unit}
+            exclusive
+            onChange={(_, selectedUnit) => setUnit(selectedUnit)}
+            aria-label="Platform"
+          >
+            <ToggleButton value="metric">Metric: &deg;C, m/s </ToggleButton>
+            <ToggleButton value="imperial">Imperial: &deg;F, mph</ToggleButton>
+          </ToggleButtonGroup>
+        </Grid>
+        {displayData && <WeatherDisplay data={displayData} unit={unit} />}
+        <LocationSelector
+          open={selectDialogOpen}
+          weatherData={weatherData}
+          handleSelect={handleSelectLocation}
+          unit={unit}
+        />
+      </Grid>
     </div>
   );
 };
